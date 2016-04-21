@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+2.09 Fri May 30 16:31:48 2008
+	- Check for 'undef' for counts and indices.
+
 2.08 Wed May 14 15:24:53 2008
 	- Use threads::shared::shared_clone() for complex data
 
