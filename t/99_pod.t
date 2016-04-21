@@ -51,9 +51,10 @@ __DATA__
 
 Hedden
 cpan
+CPAN
 readonly
 baz
-pre-populated
 dequeuing
+pre
 
 __END__

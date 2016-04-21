@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+3.02 Tue Feb 19 18:22:15 2013
+	- Timed dequeue as per suggestion by Andreas Huber
+
 3.01 Tue Oct 23 22:44:30 EDT 2012
 	- Added ->end() as per suggestion by Michael G. Schwern
 	- Major version bump because of change in structure of queue objects
@@ -14,7 +17,7 @@ Revision history for Perl extension Thread::Queue.
 	- End all tests with exit(0) and fix SKIPs
 
 2.09 Fri May 30 16:31:48 2008
-	- Check for 'undef' for counts and indices.
+	- Check for 'undef' for counts and indices
 
 2.08 Wed May 14 15:24:53 2008
 	- Use threads::shared::shared_clone() for complex data
