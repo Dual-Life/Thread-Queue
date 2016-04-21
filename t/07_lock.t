@@ -17,7 +17,13 @@ use threads;
 use Thread::Queue;
 use Thread::Semaphore;
 
-use Test::More 'tests' => 3;
+if ($] == 5.008) {
+    require 't/test.pl';   # Test::More work-alike for Perl 5.8.0
+} else {
+    require Test::More;
+}
+Test::More->import();
+plan('tests' => 3);
 
 # The following tests locking a queue
 
@@ -43,5 +49,6 @@ $sm->down();
 $st->up();
 my @x = $q->dequeue_nb(100);
 is_deeply(\@x, [1..5,8..10], 'Main dequeues');
+threads::yield();
 
 # EOF

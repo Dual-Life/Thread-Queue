@@ -17,7 +17,13 @@ use threads;
 use threads::shared;
 use Thread::Queue;
 
-use Test::More 'tests' => 37;
+if ($] == 5.008) {
+    require 't/test.pl';   # Test::More work-alike for Perl 5.8.0
+} else {
+    require Test::More;
+}
+Test::More->import();
+plan('tests' => 37);
 
 # Regular array
 my @ary1 = qw/foo bar baz/;
