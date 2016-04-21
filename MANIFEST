@@ -11,6 +11,7 @@ t/04_errs.t
 t/05_extract.t
 t/06_insert.t
 t/07_lock.t
+t/08_nothreads.t
 t/99_pod.t
 t/test.pl
 examples/queue.pl

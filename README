@@ -1,4 +1,4 @@
-Thread::Queue version 2.05
+Thread::Queue version 2.06
 ==========================
 
 Thread-safe queues
@@ -18,7 +18,6 @@ This module requires Perl 5.8.0 or later built with 'ithreads'.
 
 This module requires these other modules:
 
-    threads
     threads::shared version 0.96 or later
     Scalar::Util version 1.10 or later
     Test::More 0.50 or later (for installation)
