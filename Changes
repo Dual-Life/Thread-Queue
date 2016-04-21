@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+3.03 Thu Mar  6 20:50:41 2014
+	- Conversion of internal functions to methods to permit sub-classing
+
 3.02 Tue Feb 19 18:22:15 2013
 	- Timed dequeue as per suggestion by Andreas Huber
 

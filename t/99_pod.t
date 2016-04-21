@@ -26,7 +26,9 @@ SKIP: {
                         'trustme' => [
                         ],
                         'private' => [
-                            '_make_shared',
+                            '_validate_index',
+                            '_validate_count',
+                            '_validate_timeout',
                         ]
                     }
     );
