@@ -19,7 +19,7 @@ WriteMakefile(
         'Test::More'        => 0.50,
         'Thread::Semaphore' => 0,
     },
-    'INSTALLDIRS'   => 'perl',
+    'INSTALLDIRS'   => (($] < 5.011) ? 'perl' : 'site'),
 
     ((ExtUtils::MakeMaker->VERSION() lt '6.25') ?
         ('PL_FILES' => { })            : ()),
