@@ -1,0 +1,10 @@
+Revision history for Perl extension Thread::Queue.
+
+2.01 Thu Feb 14 18:11:00 2008
+	- Added 'count' option to dequeue and dequeue_nb
+	- Added peek, insert and extract methods
+	- Support queuing of complex data structures
+
+2.00 Jul 12 16:31:00 2002
+	- Released as part of Perl 5.8.0
+
