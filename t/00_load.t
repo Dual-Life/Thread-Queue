@@ -1,19 +1,16 @@
 use strict;
 use warnings;
 
-BEGIN {
-    use Config;
-    if (! $Config{'useithreads'}) {
-        print("1..0 # Skip: Perl not compiled with 'useithreads'\n");
-        exit(0);
-    }
+use Test::More;
+use Config;
+if ($Config{'useithreads'}) {
+    plan 'tests' => 1;
+} else {
+    plan 'skip_all' => q/Perl not compiled with 'useithreads'/;
 }
 
-use Test::More 'tests' => 1;
-
 use_ok('Thread::Queue');
-
-if (! exists($ENV{'PERL_CORE'})) {
+if ($Thread::Queue::VERSION) {
     diag('Testing Thread::Queue ' . $Thread::Queue::VERSION);
 }
 

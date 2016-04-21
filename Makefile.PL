@@ -1,11 +1,7 @@
 # Module makefile for Thread::Queue (using ExtUtils::MakeMaker)
 
-use Config;
-BEGIN {
-    if (! $Config{'useithreads'} || ($] < 5.008)) {
-        die("ERROR:  This Perl not built to support threads\n");
-    }
-}
+use strict;
+use warnings;
 
 use ExtUtils::MakeMaker;
 
@@ -28,5 +24,16 @@ WriteMakefile(
     ((ExtUtils::MakeMaker->VERSION() gt '6.30') ?
         ('LICENSE'  => 'perl')         : ()),
 );
+
+# Additional 'make' targets
+sub MY::postamble
+{
+    return <<'_EXTRAS_';
+fixfiles:
+	@dos2unix `cat MANIFEST`
+	@$(CHMOD) 644 `cat MANIFEST`
+	@$(CHMOD) 755 examples/*.pl
+_EXTRAS_
+}
 
 # EOF

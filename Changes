@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+2.05 Wed Feb 20 17:21:25 2008
+	- Build/test updates
+
 2.04 Mon Feb 18 12:31:30 2008
 	- Install under 'perl' dir
 

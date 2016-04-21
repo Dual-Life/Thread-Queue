@@ -2,13 +2,20 @@ package Test::More;     # Test::More work-alike for Perl 5.8.0
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(plan ok is is_deeply);
+our @EXPORT = qw(plan ok is like is_deeply);
 
-use Scalar::Util 1.10 qw(looks_like_number);
+use Scalar::Util;
 
 sub plan
 {
-    my (undef, $tests) = @_;
+    my $what = shift;
+    if ($what eq 'skip_all') {
+        my $reason = shift;
+        print("1..0 # Skip: $reason\n");
+        exit(0);
+    }
+
+    my $tests = shift;
     $| = 1;
     print("1..$tests\n");
 }
@@ -40,6 +47,28 @@ sub is
     my $id = $TEST++;
 
     my $ok = ("$got" eq "$expected");
+
+    if ($ok) {
+        print("ok $id - $name\n");
+    } else {
+        print("not ok $id - $name\n");
+        printf("# Failed test at line %d\n", (caller)[2]);
+        print("#      got: $got\n");
+        print("# expected: $expected\n");
+        print(STDERR "# FAIL: $name\n") if (! exists($ENV{'PERL_CORE'}));
+    }
+
+    return ($ok);
+}
+
+sub like
+{
+    my ($got, $like, $name) = @_;
+
+    lock($TEST);
+    my $id = $TEST++;
+
+    my $ok = "$got" =~ $like;
 
     if ($ok) {
         print("ok $id - $name\n");
