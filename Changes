@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+3.04 Tue Mar 11 19:29:00 2014
+	- Fix for reporting correct location of validation error
+
 3.03 Thu Mar  6 20:50:41 2014
 	- Conversion of internal functions to methods to permit sub-classing
 
