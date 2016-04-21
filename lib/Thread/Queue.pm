@@ -3,7 +3,7 @@ package Thread::Queue;
 use strict;
 use warnings;
 
-our $VERSION = '3.06';
+our $VERSION = '3.07';
 $VERSION = eval $VERSION;
 
 use threads::shared 1.21;
@@ -80,7 +80,7 @@ sub dequeue
 
     # Wait for requisite number of items
     cond_wait(%$self) while ((@$queue < $count) && ! $$self{'ENDED'});
-    cond_signal(%$self) if ((@$queue > $count) || $$self{'ENDED'});
+    cond_signal(%$self) if ((@$queue >= $count) || $$self{'ENDED'});
 
     # If no longer blocking, try getting whatever is left on the queue
     return $self->dequeue_nb($count) if ($$self{'ENDED'});
@@ -135,7 +135,7 @@ sub dequeue_timed
     while ((@$queue < $count) && ! $$self{'ENDED'}) {
         last if (! cond_timedwait(%$self, $timeout));
     }
-    cond_signal(%$self) if ((@$queue > $count) || $$self{'ENDED'});
+    cond_signal(%$self) if ((@$queue >= $count) || $$self{'ENDED'});
 
     # Get whatever we need off the queue if available
     return $self->dequeue_nb($count);
@@ -304,7 +304,7 @@ Thread::Queue - Thread-safe queues
 
 =head1 VERSION
 
-This document describes Thread::Queue version 3.06
+This document describes Thread::Queue version 3.07
 
 =head1 SYNOPSIS
 
