@@ -3,7 +3,7 @@ package Thread::Queue;
 use strict;
 use warnings;
 
-our $VERSION = '2.03';
+our $VERSION = '2.04';
 
 use threads::shared 0.96;
 use Scalar::Util 1.10 qw(looks_like_number);
@@ -263,7 +263,7 @@ Thread::Queue - Thread-safe queues
 
 =head1 VERSION
 
-This document describes Thread::Queue version 2.03
+This document describes Thread::Queue version 2.04
 
 =head1 SYNOPSIS
 
@@ -511,7 +511,7 @@ Thread::Queue Discussion Forum on CPAN:
 L<http://www.cpanforum.com/dist/Thread-Queue>
 
 Annotated POD for Thread::Queue:
-L<http://annocpan.org/~JDHEDDEN/Thread-Queue-2.03/lib/Thread/Queue.pm>
+L<http://annocpan.org/~JDHEDDEN/Thread-Queue-2.04/lib/Thread/Queue.pm>
 
 L<threads>, L<threads::shared>
 

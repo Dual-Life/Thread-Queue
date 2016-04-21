@@ -21,6 +21,7 @@ WriteMakefile(
         'Scalar::Util'    => 1.10,
         'Test::More'      => 0.50,
     },
+    'INSTALLDIRS'   => 'perl',
 
     ((ExtUtils::MakeMaker->VERSION() lt '6.25') ?
         ('PL_FILES' => { })            : ()),
