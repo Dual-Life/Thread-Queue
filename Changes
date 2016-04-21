@@ -1,5 +1,9 @@
 Revision history for Perl extension Thread::Queue.
 
+3.01 Tue Oct 23 22:44:30 EDT 2012
+	- Added ->end() as per suggestion by Michael G. Schwern
+	- Major version bump because of change in structure of queue objects
+
 2.12 Fri Dec 24 17:52:51 2010
 	- Install in 'site' for Perl >= 5.011
 	- Test file changes for core

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use threads;
-use Thread::Queue;
+use Thread::Queue 3.01;
 
 # Create a work queue for sending data to a 'worker' thread
 #   Prepopulate it with a few work items
@@ -16,10 +16,7 @@ my $status_q = Thread::Queue->new();
 # Create a detached thread to process items from the queue
 threads->create(sub {
                     # Keep grabbing items off the work queue
-                    while (my $item = $work_q->dequeue()) {
-                        # Thread is being told to exit
-                        last if ($item eq 'exit');
-
+                    while (defined(my $item = $work_q->dequeue())) {
                         # Process the item from the queue
                         print("Thread got '$item'\n");
 
@@ -40,12 +37,20 @@ threads->create(sub {
 my @work = (
     [ 'bippity', 'boppity', 'boo' ],
     [ 'ping', 'pong' ],
-    [ 'exit' ],             # Will terminate the thread
+    [ 'dit', 'dot', 'dit' ],
 );
 
 # Send work to the thread
 while ($status_q->dequeue() eq 'more') {
+    last if (! @work);   # No more work
     $work_q->enqueue(@{shift(@work)});
 }
+
+# Signal that there is no more work
+$work_q->end();
+# Wait for thread to terminate
+$status_q->dequeue();
+# Good-bye
+print("Done\n");
 
 # EOF

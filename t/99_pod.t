@@ -54,5 +54,6 @@ cpan
 readonly
 baz
 pre-populated
+dequeuing
 
 __END__
