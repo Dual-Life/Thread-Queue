@@ -11,7 +11,7 @@ sub plan
     my $what = shift;
     if ($what eq 'skip_all') {
         my $reason = shift;
-        print("1..0 # Skip: $reason\n");
+        print("1..0 # SKIP $reason\n");
         exit(0);
     }
 

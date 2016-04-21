@@ -8,4 +8,6 @@ if ($Thread::Queue::VERSION) {
     diag('Testing Thread::Queue ' . $Thread::Queue::VERSION);
 }
 
+exit(0);
+
 # EOF

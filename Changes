@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+2.11 Thu Jun 12 13:41:45 2008
+	- End all tests with exit(0) and fix SKIPs
+
 2.09 Fri May 30 16:31:48 2008
 	- Check for 'undef' for counts and indices.
 
