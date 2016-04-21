@@ -32,8 +32,8 @@ sub MY::postamble
 {
     return <<'_EXTRAS_';
 fixfiles:
-	@dos2unix `cat MANIFEST`
-	@$(CHMOD) 644 `cat MANIFEST`
+	@dos2unix `cat MANIFEST | grep -v META`
+	@$(CHMOD) 644 `cat MANIFEST | grep -v META`
 	@$(CHMOD) 755 examples/*.pl
 _EXTRAS_
 }

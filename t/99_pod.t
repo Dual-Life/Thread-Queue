@@ -57,6 +57,7 @@ CPAN
 readonly
 baz
 dequeuing
+enqueuing
 pre
 
 __END__

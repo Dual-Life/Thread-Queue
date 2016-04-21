@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+3.06 Sat Aug 22 20:33:23 2015
+	- Added queue limit feature as per suggestion by Mark Zealey
+
 3.05 Thu Mar 20 21:39:32 2014
 	- Sync with blead
 
