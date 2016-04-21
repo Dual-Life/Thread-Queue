@@ -1,5 +1,4 @@
-package Test::More;
-# Because the real Test::More doesn't work under 5.8.0
+package Test::More;     # Test::More work-alike for Perl 5.8.0
 
 require Exporter;
 our @ISA = qw(Exporter);

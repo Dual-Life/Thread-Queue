@@ -3,7 +3,7 @@ package Thread::Queue;
 use strict;
 use warnings;
 
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 
 use threads::shared 0.96;
 use Scalar::Util 1.10 qw(looks_like_number);
@@ -198,6 +198,13 @@ $make_shared = sub {
                 Internals::SvREADONLY($$copy, 1);
             }
         }
+
+        # Copy of a ref of a ref
+        elsif ($ref_type eq 'REF') {
+            my $tmp = $make_shared->($$item);
+            $copy = \$tmp;
+            share($copy);
+        }
     }
 
     # If no copy is created above, then just return the input item
@@ -256,7 +263,7 @@ Thread::Queue - Thread-safe queues
 
 =head1 VERSION
 
-This document describes Thread::Queue version 2.02
+This document describes Thread::Queue version 2.03
 
 =head1 SYNOPSIS
 
@@ -504,7 +511,7 @@ Thread::Queue Discussion Forum on CPAN:
 L<http://www.cpanforum.com/dist/Thread-Queue>
 
 Annotated POD for Thread::Queue:
-L<http://annocpan.org/~JDHEDDEN/Thread-Queue-2.02/lib/Thread/Queue.pm>
+L<http://annocpan.org/~JDHEDDEN/Thread-Queue-2.03/lib/Thread/Queue.pm>
 
 L<threads>, L<threads::shared>
 

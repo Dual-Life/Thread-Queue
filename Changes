@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+2.03 Fri Feb 15 18:54:15 2008
+	- Support queuing refs of refs
+
 2.02 Fri Feb 15 15:18:11 2008
 	- Fix tests to work under Perl 5.8.0
 

@@ -23,7 +23,7 @@ if ($] == 5.008) {
     require Test::More;
 }
 Test::More->import();
-plan('tests' => 37);
+plan('tests' => 39);
 
 # Regular array
 my @ary1 = qw/foo bar baz/;
@@ -55,18 +55,25 @@ my $sref2 = \do{ my $scalar = 69; };
 share($sref2);
 bless($sref2, 'Baz');
 
+# Ref of ref
+my $foo = [ 5, 'bork', { 'now' => 123 } ];
+my $bar = \$foo;
+my $baz = \$bar;
+my $qux = \$baz;
+is_deeply($$$$qux, $foo, 'Ref of ref');
+
 # Queue up items
 my $q = Thread::Queue->new(\@ary1, \@ary2);
 ok($q, 'New queue');
 is($q->pending(), 2, 'Queue count');
 $q->enqueue($obj1, $obj2);
 is($q->pending(), 4, 'Queue count');
-$q->enqueue($sref1, $sref2);
-is($q->pending(), 6, 'Queue count');
+$q->enqueue($sref1, $sref2, $qux);
+is($q->pending(), 7, 'Queue count');
 
 # Process items in thread
 threads->create(sub {
-    is($q->pending(), 6, 'Queue count in thread');
+    is($q->pending(), 7, 'Queue count in thread');
 
     my $tary1 = $q->dequeue();
     ok($tary1, 'Thread got item');
@@ -108,6 +115,9 @@ threads->create(sub {
     is(ref($tsref2), 'Baz', 'Item is object');
     is($$tsref2, 69, 'Shared scalar ref contents');
     $$tsref2 = 'zzz';
+
+    my $qux = $q->dequeue();
+    is_deeply($$$$qux, $foo, 'Ref of ref');
 
     is($q->pending(), 0, 'Empty queue');
     my $nothing = $q->dequeue_nb();
