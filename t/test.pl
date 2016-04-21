@@ -75,8 +75,8 @@ sub like
     } else {
         print("not ok $id - $name\n");
         printf("# Failed test at line %d\n", (caller)[2]);
-        print("#      got: $got\n");
-        print("# expected: $expected\n");
+        print("#           got: $got\n");
+        print("# doesn't match: $like\n");
         print(STDERR "# FAIL: $name\n") if (! exists($ENV{'PERL_CORE'}));
     }
 
@@ -90,7 +90,7 @@ sub is_deeply
     lock($TEST);
     my $id = $TEST++;
 
-    my ($ok, $g_err, $e_err) = _compare($got, $expected);
+    my ($ok, $g_err, $e_err) = _compare($got, $expected, {});
 
     if ($ok) {
         print("ok $id - $name\n");
@@ -107,7 +107,7 @@ sub is_deeply
 
 sub _compare
 {
-    my ($got, $exp) = @_;
+    my ($got, $exp, $cir_ref) = @_;
     my ($ok, $g_err, $e_err);
 
     # Undefs?
@@ -122,7 +122,6 @@ sub _compare
         # Two scalars
         return ("$got" eq "$exp", "'$got'", "'$exp'")
             if (! ref($got) && ! ref($exp));
-
         return (undef, "'$got'", "$exp") if (! ref($got));
         return (undef, "$got", "'$exp'");
     }
@@ -130,15 +129,28 @@ sub _compare
     # Check classes
     return (undef, "$got", "$exp") if (ref($got) ne ref($exp));
 
-    my $g_ref = Scalar::Util::reftype($got);
-    my $e_ref = Scalar::Util::reftype($exp);
+    # Check for circular references
+    my $g_addr = threads::shared::_id($got) || Scalar::Util::refaddr($got);
+    my $e_addr = threads::shared::_id($exp) || Scalar::Util::refaddr($exp);
+    if (exists($cir_ref->{$g_addr})) {
+        return 1 if ($cir_ref->{$g_addr} == $e_addr);
+        return (undef, "$got", "$exp");
+    }
 
     # Check reftypes
+    my $g_ref = Scalar::Util::reftype($got);
+    my $e_ref = Scalar::Util::reftype($exp);
     return (undef, "reftype=$g_ref", "reftype=$e_ref") if ($g_ref ne $e_ref);
 
     # Recursively compare refs or refs
     if ($g_ref eq 'REF') {
-        ($ok, $g_err, $e_err) = _compare($$got, $$exp);
+        # Add item to circular reference hash
+        $cir_ref->{$g_addr} = $e_addr;
+        # Recursively compare
+        ($ok, $g_err, $e_err) = _compare($$got, $$exp, $cir_ref);
+        # Remove item from circular refernce hash
+        delete($cir_ref->{$g_addr});
+        # Check results
         return 1 if $ok;
         return (undef, "ref of '$$got'", "ref of '$$exp'");
     }
@@ -157,8 +169,14 @@ sub _compare
 
         # Compare elements
         for (my $ii=0; $ii<$g_len; $ii++) {
-            ($ok, $g_err, $e_err) = _compare($$got[$ii], $$exp[$ii]);
-            return (undef, "\$\$got[$ii]=$g_err", "\$\$exp[$ii]=$g_err")
+            # Add item to circular reference hash
+            $cir_ref->{$g_addr} = $e_addr;
+            # Recursively compare
+            ($ok, $g_err, $e_err) = _compare($$got[$ii], $$exp[$ii], $cir_ref);
+            # Remove item from circular refernce hash
+            delete($cir_ref->{$g_addr});
+            # Check results
+            return (undef, "\$\$got[$ii]=$g_err", "\$\$exp[$ii]=$e_err")
                 if ! $ok;
         }
         return 1;  # Same
@@ -176,10 +194,16 @@ sub _compare
                 my $val = (defined($$got{$key})) ? $$got{$key} : 'undef';
                 return (undef, "\$\$got{$key}=$val", "\$\$exp{$key} does not exist");
             }
-            ($ok, $g_err, $e_err) = _compare($$got{$key}, $$exp{$key});
+
+            # Add item to circular reference hash
+            $cir_ref->{$g_addr} = $e_addr;
+            # Recursively compare
+            ($ok, $g_err, $e_err) = _compare($$got{$key}, $$exp{$key}, $cir_ref);
+            # Remove item from circular refernce hash
+            delete($cir_ref->{$g_addr});
+            # Check results
             return (undef, "\$\$got{$key}=$g_err", "\$\$exp{$key}=$g_err")
                 if ! $ok;
-
         }
         return 1;  # Same
     }

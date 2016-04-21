@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+2.07 Wed May  7 18:48:46 2008
+	- Properly clone complex structures with circular references
+
 2.06 Fri Feb 22 22:08:38 2008
 	- Allow installation on non-threaded Perls
 

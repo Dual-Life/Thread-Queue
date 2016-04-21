@@ -1,4 +1,4 @@
-Thread::Queue version 2.06
+Thread::Queue version 2.07
 ==========================
 
 Thread-safe queues
@@ -20,7 +20,8 @@ This module requires these other modules:
 
     threads::shared version 0.96 or later
     Scalar::Util version 1.10 or later
-    Test::More 0.50 or later (for installation)
+    Test::More 0.50 or later (for testing)
+    Thread::Semaphore (for testing)
 
 COPYRIGHT AND LICENCE
 

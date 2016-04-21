@@ -1,5 +1,7 @@
 # Module makefile for Thread::Queue (using ExtUtils::MakeMaker)
 
+require 5.008;
+
 use strict;
 use warnings;
 
@@ -12,9 +14,10 @@ WriteMakefile(
     'VERSION_FROM'  => 'lib/Thread/Queue.pm',
     'ABSTRACT_FROM' => 'lib/Thread/Queue.pm',
     'PREREQ_PM'     => {
-        'threads::shared' => 0.96,
-        'Scalar::Util'    => 1.10,
-        'Test::More'      => 0.50,
+        'threads::shared'   => 0.96,
+        'Scalar::Util'      => 1.10,
+        'Test::More'        => 0.50,
+        'Thread::Semaphore' => 0,
     },
     'INSTALLDIRS'   => 'perl',
 
