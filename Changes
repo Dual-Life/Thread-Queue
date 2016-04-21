@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+3.05 Thu Mar 20 21:39:32 2014
+	- Sync with blead
+
 3.04 Tue Mar 11 19:29:00 2014
 	- Fix for reporting correct location of validation error
 
