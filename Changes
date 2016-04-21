@@ -1,5 +1,8 @@
 Revision history for Perl extension Thread::Queue.
 
+2.08 Wed May 14 15:24:53 2008
+	- Use threads::shared::shared_clone() for complex data
+
 2.07 Wed May  7 18:48:46 2008
 	- Properly clone complex structures with circular references
 

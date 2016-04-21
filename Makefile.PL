@@ -14,7 +14,7 @@ WriteMakefile(
     'VERSION_FROM'  => 'lib/Thread/Queue.pm',
     'ABSTRACT_FROM' => 'lib/Thread/Queue.pm',
     'PREREQ_PM'     => {
-        'threads::shared'   => 0.96,
+        'threads::shared'   => 1.21,
         'Scalar::Util'      => 1.10,
         'Test::More'        => 0.50,
         'Thread::Semaphore' => 0,
