@@ -19,5 +19,3 @@ t/99_pod.t
 t/test.pl
 examples/callback.pl
 examples/queue.pl
-META.yml                                 Module YAML meta-data (added by MakeMaker)
-META.json                                Module JSON meta-data (added by MakeMaker)
