@@ -618,11 +618,11 @@ Passing array/hash refs that contain objects may not work for Perl prior to
 
 =head1 SEE ALSO
 
+Thread::Queue on MetaCPAN:
+L<https://metacpan.org/release/Thread-Queue>
+
 Code repository:
 L<https://github.com/Dual-Life/Thread-Queue>
-
-Thread::Queue Discussion Forum on CPAN:
-L<http://www.cpanforum.com/dist/Thread-Queue>
 
 L<threads>, L<threads::shared>
 
