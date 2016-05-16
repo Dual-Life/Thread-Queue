@@ -621,7 +621,7 @@ Passing array/hash refs that contain objects may not work for Perl prior to
 Thread::Queue on MetaCPAN:
 L<https://metacpan.org/release/Thread-Queue>
 
-Code repository:
+Code repository for CPAN distribution:
 L<https://github.com/Dual-Life/Thread-Queue>
 
 L<threads>, L<threads::shared>
