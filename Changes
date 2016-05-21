@@ -3,6 +3,9 @@ Revision history for Perl extension Thread::Queue.
 -
 	-
 
+3.11 Fri May 20 18:33:00 2016
+	- Removed use of detached threads in tests (Bug #114468)
+
 3.09 Sat Apr 30 21:33:54 2016
 	- Sync with blead
 
