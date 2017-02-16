@@ -3,6 +3,11 @@ Revision history for Perl extension Thread::Queue.
 -
 	-
 
+3.12 Thu Feb  9 18:42:45 2017
+	- Fix deadlock caused by combination of dequeue_nb, enqueue and
+		queue size limit (Bug #120157 - fix by Chad Fox)
+	- Prevent calling dequeue methods with COUNT > LIMIT
+
 3.11 Fri May 20 18:33:00 2016
 	- Removed use of detached threads in tests (Bug #114468)
 
